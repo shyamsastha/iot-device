@@ -7,16 +7,16 @@ from labs.module02 import TempSensorEmulator
 
 #initiating the adaptor
 tempSenseEmulator = TempSensorEmulator.TempSensorEmulator()
+
 #initiating the daemon
-tempSenseEmulator.daemon = True
+#tempSenseEmulator.daemon = True
+
 #enabling the adaptor
-tempSenseEmulator.EnableAdaptor = True
+tempSenseEmulator.enableEmulator = True
+
 #starting the thread
 tempSenseEmulator.start()
 
 #condition for the infinite loop
 while (True):
-    pass
-
-if __name__ == '__main__':
     pass

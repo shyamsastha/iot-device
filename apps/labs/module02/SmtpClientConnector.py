@@ -16,7 +16,7 @@ email receiver on a regular cycle
 class SmtpClientConnector(object):
 
     def __init__(self):
-        self.config = ConfigUtil.ConfigUtil('../../../data/ConnectedDevicesConfig.props')
+        self.config = ConfigUtil.ConfigUtil(ConfigConst.DEFAULT_CONFIG_FILE_NAME)
         self.config.loadConfig()
         print('Configuration data...\n' + str(self.config))
         
@@ -33,9 +33,7 @@ class SmtpClientConnector(object):
         msg['To'] = toAddr
         msg['Subject'] = topic
         msgBody = str(data)
-        
         msg.attach(MIMEText(msgBody))
-        
         msgText = msg.as_string()
 
         # send e-mail notification

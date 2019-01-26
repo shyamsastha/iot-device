@@ -18,7 +18,7 @@ class SensorData():
     variables that will be sent as sensor information
     '''
     timeStamp = None
-    name = 'Not set'
+    name = 'Current Temperature'
     curValue = 0
     avgValue = 0
     minValue = 0

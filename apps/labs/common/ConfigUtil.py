@@ -22,6 +22,7 @@
 
 import configparser
 import os
+from labs.common import ConfigConst
 
 '''
 A simple utility wrapper around the built-in Python
@@ -30,10 +31,9 @@ configuration infrastructure.
 Forked from professor 
 @author: aking
 '''
-DEFAULT_CONFIG_FILE = "../../../config/ConnectedDevicesConfig.props"
 
 class ConfigUtil:
-    configFile = DEFAULT_CONFIG_FILE
+    configFile = ConfigConst.DEFAULT_CONFIG_FILE_NAME
     configData = configparser.ConfigParser()
     isLoaded   = False
     
@@ -52,9 +52,10 @@ class ConfigUtil:
      
     '''
     def loadConfig(self):
-        print(str(os.listdir(self.configPath)))
         
-        if (os.path.exists(self.configPath)):
+        print(str((self.configFile)))
+        
+        if (os.path.exists(self.configFile)):
             print("Loading config: " + self.configFile)
             self.configData.read(self.configFile)
             self.isLoaded = True

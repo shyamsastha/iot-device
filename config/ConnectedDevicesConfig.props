@@ -14,7 +14,7 @@ configPath     = /home/motion/config
 
 [smtp.cloud]
 host           = smtp.gmail.com
-port           = 465
+port           = 485
 fromAddr       = shyamiotcd@gmail.com
 toAddr         = shyamiotcd@gmail.com
 toMediaAddr    = dragonfiresteam.pbe@gmail.com
