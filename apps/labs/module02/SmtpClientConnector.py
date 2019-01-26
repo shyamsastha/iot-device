@@ -37,8 +37,9 @@ class SmtpClientConnector(object):
         msgText = msg.as_string()
 
         # send e-mail notification
-        smtpServer = smtplib.SMTP_SSL(host, port)
+        smtpServer = smtplib.SMTP(host, port)
         smtpServer.ehlo()
+        smtpServer.starttls()
         smtpServer.login(fromAddr, authToken)
         smtpServer.sendmail(fromAddr, toAddr, msgText)
-        smtpServer.close()
+        smtpServer.quit()

@@ -12,7 +12,7 @@ from labs.module02 import SmtpClientConnector
 
 class TempSensorEmulator(Thread):
 
-    #creating the sensor data object and initial values for use inside Emulator
+    #creating the sensor data object and initial values to use inside Emulator
     sensorData = SensorData.SensorData()
     connector = SmtpClientConnector.SmtpClientConnector()
     isPrevTempSet = False
