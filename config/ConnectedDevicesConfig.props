@@ -13,13 +13,13 @@ certFile       = /home/motion/config/ubidots_cert.pem
 configPath     = /home/motion/config
 
 [smtp.cloud]
-host           = Not Set
+host           = smtp.gmail.com
 port           = 465
-fromAddr       = Not Set
-toAddr         = Not Set
-toMediaAddr    = Not Set
-toTxtAddr      = Not Set
-authToken      = Not Set
+fromAddr       = shyamiotcd@gmail.com
+toAddr         = shyamiotcd@gmail.com
+toMediaAddr    = dragonfiresteam.pbe@gmail.com
+toTxtAddr      = 8572366809@txt.att.net
+authToken      = Do3sitwork?
 enableAuth     = True
 enableCrypt    = True
 
