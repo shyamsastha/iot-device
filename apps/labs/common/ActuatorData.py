@@ -7,15 +7,17 @@ Simple Python script to generate pseudo Actuator data
 import os
 from datetime import datetime
 
+#Various command modes to be set on the actuator
 COMMAND_OFF = 0 #To turn the actuator off
 COMMAND_ON = 1 #To turn the actuator on
 COMMAND_SET = 2 #To set value
 COMMAND_RESET = 3 #To reset the value
+
+#Possible states of the actuator
 STATUS_IDLE = 0 #To set the actuator state to idle
 STATUS_ACTIVE = 1 #To set the actuator state to active
 
 #Flags to check for errors
-
 ERROR_OK = 0 
 ERROR_COMMAND_FAILED = 1 #
 ERROR_NON_RESPONSIBLE = -1
@@ -48,11 +50,11 @@ class ActuatorData():
 
     #Gets the State of the device
     def getStateData(self):
-        return self.stateDatae
+        return self.stateData
 
     #Gets the status code of the device
     def getStatusCode(self):
-        return self.statusCodee
+        return self.statusCode
 
     #Gets the error code if any
     def getErrorCode(self):
