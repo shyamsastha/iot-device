@@ -31,7 +31,7 @@ class ActuatorData():
     name = 'Lights'
     hasError = False
     command = 0
-    errCode = 0
+    errorCode = 0
     statusCode = 0
     stateData = None
     val = 0.0
