@@ -10,8 +10,8 @@ from labs.common import ConfigUtil
 from labs.common import ConfigConst
 
 i2cBus = smbus.SMBus(1) # Uses I2C bus No.1 on Raspberry Pi3 +
-#enableControl = 0x2D
-#enableMeasure = 0x08
+enableControl = 0x2D
+enableMeasure = 0x08
 accelAddr = 0x1C # address for IMU (accelerometer)
 magAddr = 0x6A # address for IMU (magnetometer)
 pressAddr = 0x5C # address for pressure sensor
@@ -28,15 +28,16 @@ class I2CSenseHatAdaptor(threading.Thread):
         self.config.loadConfig()
         print('Configuration data...\n' + str(self.config))
         self.initI2CBus()
-        
+
+    #Initializing I2C bus and corresponding addresses    
     def initI2CBus(self):
         print("Initializing I2C bus and enabling I2C addresses...")
-        i2cBus.write_quick(accelAddr)
-        i2cBus.write_quick(magAddr)
-        i2cBus.write_quick(pressAddr)
-        i2cBus.write_quick(humidAddr)
+        i2cBus.write_quick(accelAddr, enableControl, enableMeasure)
+        i2cBus.write_quick(magAddr, enableControl, enableMeasure)
+        i2cBus.write_quick(pressAddr, enableControl, enableMeasure)
+        i2cBus.write_quick(humidAddr, enableControl, enableMeasure)
     '''
-    Reading data from the adaptor and displaying them one by one
+    Reading data from various sensors and displaying them individually
     '''
     #AccelerometerData
     def displayAccelerometerData(self):
