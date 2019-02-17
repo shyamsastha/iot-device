@@ -17,7 +17,7 @@ class TempActuatorEmulator(object):
         
         if(self.actuatorData != actuatorData):
             if(actuatorData.getValue() > 0):
-                print('       \n Reduce the Temperature by:' + str(actuatorData.getValue()))
+                print('       \n Reduce the Temperature by: ' + str(actuatorData.getValue()))
                 
                 self.actuatorData.updateData(actuatorData)
             elif(actuatorData.getValue() < 0):

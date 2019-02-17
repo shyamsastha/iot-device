@@ -30,7 +30,7 @@ configuration infrastructure.
 @author: aking
 '''
 class ConfigUtil:
-    configPath = '/mnt/e/aking/Documents/workspace/iot-device/data'
+    configPath = '/home/shyam/scratch/iot-device/config'
     configFile = configPath + '/' + 'ConnectedDevicesConfig.props'
     configData = configparser.ConfigParser()
     isLoaded   = False

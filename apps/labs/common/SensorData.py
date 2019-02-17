@@ -17,31 +17,36 @@ class SensorData():
     Initializing various values to zero or null so it can be iterated in the functions below to produce
     variables that will be sent as sensor information
     '''
-    timeStamp = None
-    name = 'Current Temperature'
-    curValue = 0
-    avgValue = 0
-    minValue = 0
-    maxValue = 0
-    totValue = 0
-    sampleCount = 0
+    timestamp = None
+    name = 'Temperature'
+    curVal = 0;
+    avgVal = 0;
+    minVal = 0;
+    maxVal = 25;
+    totVal = 0;
+    diffVal = 0;
+    sampleCount = 0;
+    breach_values = list();
     
     #takes in the current time as the time stamp
-    def __init__(self):
-        self.timeStamp = str(datetime.now())
+    def __init__(self,name, minVal, maxVal):
+        self.timestamp = str(datetime.now());
+        self.name = name;
+        self.maxVal = maxVal;
+        self.minVal = minVal;
     
     #function to add value to empty readings and increment values on consequent readings
     def addValue(self, newVal):
         self.sampleCount += 1
         self.timeStamp = str(datetime.now())
-        self.curValue = newVal
-        self.totValue += newVal
-        if (self.curValue < self.minValue):
-            self.minValue = self.curValue
-        if (self.curValue > self.maxValue):
-            self.maxValue = self.curValue
-        if (self.totValue != 0 and self.sampleCount > 0):
-            self.avgValue = self.totValue / self.sampleCount
+        self.curVal = newVal
+        self.totVal += newVal
+        if (self.curVal < self.minVal):
+            self.minVal = self.curVal
+        if (self.curVal > self.maxVal):
+            self.maxVal = self.curVal
+        if (self.totVal != 0 and self.sampleCount > 0):
+            self.avgVal = self.totVal / self.sampleCount
     
     '''
     Various functions are listed below according to the requirements to retrieve information based
@@ -49,16 +54,16 @@ class SensorData():
     reading obtained to that point. each of the functions are self explanatory. 
     '''
     def getAvgValue(self):
-        return self.avgValue
+        return self.avgVal
     
     def getMaxValue(self):
-        return self.maxValue
+        return self.maxVal
     
     def getMinValue(self):
-        return self.minValue
+        return self.minVal
     
     def getValue(self):
-        return self.curValue
+        return self.curVal
     
     def setName(self, name):
         self.name = name
@@ -68,10 +73,10 @@ class SensorData():
         customStr = \
             str(self.name + ':' + \
             os.linesep + '\tTime: ' + self.timeStamp + \
-            os.linesep + '\tCurrent: ' + str(self.curValue) + \
-            os.linesep + '\tAverage: ' + str(self.avgValue) + \
+            os.linesep + '\tCurrent: ' + str(self.curVal) + \
+            os.linesep + '\tAverage: ' + str(self.avgVal) + \
             os.linesep + '\tSamples: ' + str(self.sampleCount) + \
-            os.linesep + '\tMin: ' + str(self.minValue) + \
-            os.linesep + '\tMax: ' + str(self.maxValue))
+            os.linesep + '\tMin: ' + str(self.minVal) + \
+            os.linesep + '\tMax: ' + str(self.maxVal))
             
         return customStr

@@ -1,0 +1,1 @@
+{"name": "Temperature data", "avgVal": 13.223743949548517, "maxVal": 30, "minVal": 0, "curVal": 23.378593552081803, "time": "2019-02-17 18:44:22.607483"}
