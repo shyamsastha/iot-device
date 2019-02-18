@@ -75,5 +75,5 @@ cloudSvcType   = UBIDOTS
 
 [device]
 enableEmulator = True
-pollCycleSecs  = 60
+pollCycleSecs  = 10
 nominalTemp    = 20

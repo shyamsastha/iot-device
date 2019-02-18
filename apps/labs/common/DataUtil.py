@@ -7,17 +7,19 @@ import json
 from labs.common.SensorData import SensorData
 from labs.common.ActuatorData import ActuatorData
 
+'''
+This class will help in parsing from and to JSON files
+'''
 class DataUtil(object):
-    '''
-    This class will help in parsing from and to JSON files
-    '''
-
 
     def __init__(self):
         '''
-        Constructor
+        Empty Constructor
         '''
     
+    '''
+    Function to convert from sensor to Json type
+    '''
     def sensorTojson(self, SensorData):
         data = {};
         data['name'] = SensorData.name;
@@ -30,7 +32,10 @@ class DataUtil(object):
         outputSd = open('sensedata.txt','w')
         outputSd.write(self.jsonSd)
         return self.jsonSd
-        
+    
+    '''
+    Function to convert from Json type to sensor
+    '''    
     def jsonTosensor(self,jsonData):
         sensedataDict = json.loads(jsonData)
         print(" decode [pre] --> " + str(sensedataDict))
@@ -46,12 +51,18 @@ class DataUtil(object):
         print(" decode [post] --> " + str(sensedata))
         return sensedata
     
+    '''
+    Function to convert from actuator to Json type
+    '''
     def actuatorTojson(self,actdata):
         self.jsonAd = json.dumps(actdata.__dict__)
         outputAd = open('actdata.txt','w')
         outputAd.write(self.jsonAd)
         return self.jsonAd
     
+    '''
+    Function to convert from Json type to actuator
+    '''    
     def jsonToactuator(self,jsonData):
         actdataDict = json.loads(jsonData)
         print(" decode [pre] --> " + str(actdataDict))

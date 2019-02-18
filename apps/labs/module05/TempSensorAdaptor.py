@@ -8,7 +8,7 @@ Simple Python script for Temp Sensor Adaptor - modified to accomodate JSON trans
 Imports to read from senseHAT, use JSON, use date and time for recording
 Used to improve the existing temperature sensor adaptor application
 ''' 
-from sense_hat import SenseHat
+
 from datetime import datetime
 from labs.common import DataUtil
 import json
@@ -68,12 +68,15 @@ class TempSensorAdaptor(Thread):
                 #checking for alerting difference and sending the message through SMTP
                 if (abs(self.sensorData.curVal >= (self.sensorData.getAvgValue() + 5))):               
                     data = DataUtil.DataUtil()
-                    self.sensorData.timestamp = datetime.now();
-                    json_data = data.sensorTojson(self.sensorData);
+                    self.sensorData.timestamp = datetime.now().replace(microsecond=0);
+                    json_data = data.sensorTojson(self.sensorData); #appends JSON data to file
+                    #appends values to breach list in sensorData object
                     self.sensorData.breach_values.append(self.sensorData);
                     print(self.sensorData.breach_values)
-                    print('\n Current tempConf exceeds average by > ' + str(self.sensorData.diffVal) + '. Triggering alert...')
-                    self.connector.publishMessage('Exceptional sensor data!!\n', json_data)
+                    print('\n Current tempConf exceeds average by > '
+                          + str(self.sensorData.diffVal) + '. Triggering alert...')
+                    #sends message through SMTP
+                    self.connector.publishMessage('Exceptional sensor data!!\n', json_data) 
                 
                 '''
                 checking to see if the temperature exceeds nominal temperature to set status
