@@ -32,10 +32,10 @@ class I2CSenseHatAdaptor(threading.Thread):
     #Initializing I2C bus and corresponding addresses    
     def initI2CBus(self):
         print("Initializing I2C bus and enabling I2C addresses...")
-        i2cBus.write_quick(accelAddr, enableControl, enableMeasure)
-        i2cBus.write_quick(magAddr, enableControl, enableMeasure)
-        i2cBus.write_quick(pressAddr, enableControl, enableMeasure)
-        i2cBus.write_quick(humidAddr, enableControl, enableMeasure)
+        i2cBus.write_byte_data(accelAddr, enableControl, enableMeasure)
+        i2cBus.write_byte_data(magAddr, enableControl, enableMeasure)
+        i2cBus.write_byte_data(pressAddr, enableControl, enableMeasure)
+        i2cBus.write_byte_data(humidAddr, enableControl, enableMeasure)
     '''
     Reading data from various sensors and displaying them individually
     '''
