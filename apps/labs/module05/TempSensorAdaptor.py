@@ -70,8 +70,8 @@ class TempSensorAdaptor(Thread):
                     data = DataUtil.DataUtil()
                     self.sensorData.timestamp = datetime.now();
                     json_data = data.sensorTojson(self.sensorData);
-                    SensorData.SensorData.breach_values.append(self.sensorData);
-                    print(SensorData.SensorData.breach_values)
+                    self.sensorData.breach_values.append(self.sensorData);
+                    print(self.sensorData.breach_values)
                     print('\n Current tempConf exceeds average by > ' + str(self.sensorData.diffVal) + '. Triggering alert...')
                     self.connector.publishMessage('Exceptional sensor data!!\n', json_data)
                 
