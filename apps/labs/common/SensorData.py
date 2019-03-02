@@ -70,7 +70,7 @@ class SensorData():
     
     #custom string output to print the obtained information          
     def __str__(self):
-        customStr = \
+        self.customStr = \
             str(self.name + ':' + \
             os.linesep + '\tTime: ' + self.timeStamp + \
             os.linesep + '\tCurrent: ' + str(self.curVal) + \
@@ -79,4 +79,4 @@ class SensorData():
             os.linesep + '\tMin: ' + str(self.minVal) + \
             os.linesep + '\tMax: ' + str(self.maxVal))
             
-        return customStr
+        return self.customStr
