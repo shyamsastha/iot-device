@@ -61,6 +61,7 @@ class TempSensorAdaptor(Thread):
                 #generate temperature information
                 self.sensorData.curValue = uniform(float(self.sensorData.getMinValue()), float(self.sensorData.getMaxValue()))
                 self.sensorData.addValue(self.sensorData.curValue)
+                self.sensorData.diffVal = self.sensorData.curVal - self.sensorData.avgVal;
                 print('\n--------------------')
                 print('New sensor readings:')
                 print(' ' + str(self.sensorData))
