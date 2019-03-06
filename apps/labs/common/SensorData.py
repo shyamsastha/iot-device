@@ -30,7 +30,7 @@ class SensorData():
     
     #takes in the current time as the time stamp
     def __init__(self,name, minVal, maxVal):
-        self.timestamp = str(datetime.now());
+        self.timestamp = str(datetime.now().replace(microsecond=0));
         self.name = name;
         self.maxVal = maxVal;
         self.minVal = minVal;
