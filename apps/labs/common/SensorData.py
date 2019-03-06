@@ -38,7 +38,7 @@ class SensorData():
     #function to add value to empty readings and increment values on consequent readings
     def addValue(self, newVal):
         self.sampleCount += 1
-        self.timeStamp = str(datetime.now())
+        self.timeStamp = str(datetime.now().replace(microsecond=0))
         self.curVal = newVal
         self.totVal += newVal
         if (self.curVal < self.minVal):
@@ -75,7 +75,7 @@ class SensorData():
             os.linesep + '\tTime: ' + self.timeStamp + \
             os.linesep + '\tCurrent: ' + str(self.curVal) + \
             os.linesep + '\tAverage: ' + str(self.avgVal) + \
-            os.linesep + '\tSamples: ' + str(self.sampleCount) + \
+            #os.linesep + '\tSamples: ' + str(self.sampleCount) + \
             os.linesep + '\tMin: ' + str(self.minVal) + \
             os.linesep + '\tMax: ' + str(self.maxVal))
             

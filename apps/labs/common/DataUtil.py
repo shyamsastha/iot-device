@@ -27,7 +27,7 @@ class DataUtil(object):
         data['maxVal'] = SensorData.getMaxValue();
         data['minVal'] = SensorData.getMinValue();
         data['curVal'] = SensorData.getValue();
-        data['time'] = str(SensorData.timestamp);
+        data['timeStamp'] = str(SensorData.timeStamp);
         self.jsonSd = json.dumps(data)
         outputSd = open('sensedata.txt','w')
         outputSd.write(self.jsonSd)
@@ -39,15 +39,15 @@ class DataUtil(object):
     def jsonTosensor(self,jsonData):
         sensedataDict = json.loads(jsonData)
         print(" decode [pre] --> " + str(sensedataDict))
-        sensedata = SensorData()
+        sensedata = SensorData('Temperature',0,30)
         sensedata.name = sensedataDict['name']
         sensedata.timeStamp = sensedataDict['timeStamp']
-        sensedata.avgValue = sensedataDict['avgValue']
-        sensedata.minValue = sensedataDict['minValue']
-        sensedata.maxValue = sensedataDict['maxValue']
-        sensedata.curValue = sensedataDict['curValue']
-        sensedata.totValue = sensedataDict['totValue']
-        sensedata.sampleCount = sensedataDict['sampleCount']
+        sensedata.avgVal = sensedataDict['avgVal']
+        sensedata.minVal = sensedataDict['minVal']
+        sensedata.maxVal = sensedataDict['maxVal']
+        sensedata.curVal = sensedataDict['curVal']
+        #sensedata.totValue = sensedataDict['totValue']
+        #sensedata.sampleCount = sensedataDict['sampleCount']
         print(" decode [post] --> " + str(sensedata))
         return sensedata
     
@@ -68,7 +68,7 @@ class DataUtil(object):
         print(" decode [pre] --> " + str(actdataDict))
         actdata = ActuatorData()
         actdata.name = actdataDict['name']
-        actdata.timeStamp = actdataDict['timeStamp']
+        actdata.time = actdataDict['timeStamp']
         actdata.hasError = actdataDict['hasError']
         actdata.command = actdataDict['command']
         actdata.errCode = actdataDict['errCode']
