@@ -15,7 +15,7 @@ from asyncio.tasks import sleep
 import time
 
 class MqttClientConnector():
-    host = "test.mosquitto.org"
+    host = "iot.eclipse.org"
     jsondata = "Hello"
     
     def on_connect(self,client,userdata,flags,rc):

@@ -26,7 +26,7 @@ enableCrypt    = True
 [mqtt.cloud]
 userNameToken  = Not Set
 authToken      = Not Set
-host           = test.mosquitto.org
+host           = iot.eclipse.org
 port           = 1883
 securePort     = 1884
 defaultQos     = 2
