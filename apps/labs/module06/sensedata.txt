@@ -1,1 +1,1 @@
-{"maxVal": 30, "timeStamp": "2019-03-06 18:44:48", "minVal": 10, "curVal": 27.577612340295673, "name": "Temperature Sensor", "avgVal": 27.577612340295673}
+{"curVal": 20.0, "minVal": 5.0, "maxVal": 30.0, "name": "Temperature Sensor", "timeStamp": "2019.03.06 22:37.56", "avgVal": 10.0}

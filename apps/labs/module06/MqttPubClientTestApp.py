@@ -26,6 +26,7 @@ sensorData.curVal = uniform(float(sensorData.getMinValue()), float(sensorData.ge
 sensorData.addValue(sensorData.curVal);
 sensorData.diffVal = sensorData.curVal - sensorData.avgVal;
 sensorData.timestamp = datetime.now().replace(microsecond=0);
+sensorData.sampleCount = 1;
 logging.info('\nSensorData for sending: ')
 print("\n"+str(sensorData));
 

@@ -18,14 +18,14 @@ class SensorData():
     variables that will be sent as sensor information
     '''
     timestamp = None
-    name = 'Temperature'
+    name = 'Temperature Sensor'
     curVal = 0;
     avgVal = 0;
     minVal = 0;
     maxVal = 25;
     totVal = 0;
     diffVal = 0;
-    sampleCount = 0;
+    sampleCount = 1;
     breach_values = list();
     
     #takes in the current time as the time stamp
