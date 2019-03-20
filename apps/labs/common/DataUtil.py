@@ -29,6 +29,7 @@ class DataUtil(object):
         data['curVal'] = SensorData.getValue();
         data['timeStamp'] = str(SensorData.timeStamp);
         data['totVal'] = SensorData.getTotalValue();
+        data['sampleCount'] = SensorData.getSamplecount();
         self.jsonSd = json.dumps(data)
         outputSd = open('sensedata.txt','w')
         outputSd.write(self.jsonSd)
@@ -48,7 +49,7 @@ class DataUtil(object):
         sensedata.maxVal = sensedataDict['maxVal']
         sensedata.curVal = sensedataDict['curVal']
         sensedata.totValue = sensedataDict['totValue']
-        #sensedata.sampleCount = sensedataDict['sampleCount']
+        sensedata.sampleCount = sensedataDict['sampleCount']
         print(" decode [post] --> " + str(sensedata))
         return sensedata
     

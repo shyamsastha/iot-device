@@ -37,16 +37,16 @@ class SensorData():
     
     #function to add value to empty readings and increment values on consequent readings
     def addValue(self, newVal):
-        #self.sampleCount += 1
+        self.sampleCount += 1
         self.timeStamp = str(datetime.now().replace(microsecond=0))
         self.curVal = newVal
-        #self.totVal += newVal
+        self.totVal += newVal
         if (self.curVal < self.minVal):
             self.minVal = self.curVal
         if (self.curVal > self.maxVal):
             self.maxVal = self.curVal
-        #if (self.totVal != 0 and self.sampleCount > 0):
-            #self.avgVal = self.totVal / self.sampleCount
+        if (self.totVal != 0 and self.sampleCount > 0):
+            self.avgVal = self.totVal / self.sampleCount
     
     '''
     Various functions are listed below according to the requirements to retrieve information based
@@ -67,6 +67,9 @@ class SensorData():
     
     def getValue(self):
         return self.curVal
+    
+    def getSamplecount(self):
+        return self.sampleCount
     
     def setName(self, name):
         self.name = name
