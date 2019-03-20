@@ -21,14 +21,3 @@ class CoapServerConnector(CoAP):
         self.host = self.config.getProperty(ConfigConst.COAP_DEVICE_SECTION, ConfigConst.HOST_KEY)
         self.port = int(self.config.getProperty(ConfigConst.COAP_DEVICE_SECTION, ConfigConst.PORT_KEY))
         CoAP.__init__(self, (self.host, self.port))
-        self.add_resource(self.path,"Temperature", TempResourceHandler(config = self.config))
-    
-    def start(self):
-        try:
-            self.listen(100)
-        except KeyboardInterrupt:
-            print("Shutting down server")
-            self.close()
-            print("Exiting...")
-        finally:
-            self.close()
