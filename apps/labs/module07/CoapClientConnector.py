@@ -10,7 +10,7 @@ from labs.common import ConfigConst
 from labs.common.ConfigUtil import ConfigUtil
 from labs.common.DataUtil import DataUtil
 from labs.common.SensorData import SensorData
-import pyping
+import os
 
 client = None
 
@@ -25,8 +25,8 @@ class CoapClientConnector():
         self.config.loadConfig()
         print('Configuration data...\n' + str(self.config)) 
         
-        self.host = self.config.getProperty(ConfigConst.COAP_GATEWAY_SECTION, ConfigConst.DEFAULT_HOST)
-        self.port = int(self.config.getProperty(ConfigConst.COAP_GATEWAY_SECTION, ConfigConst.DEFAULT_COAP_PORT))
+        self.host = self.config.getProperty(ConfigConst.COAP_DEVICE_SECTION, ConfigConst.HOST_KEY)
+        self.port = int(self.config.getProperty(ConfigConst.COAP_DEVICE_SECTION, ConfigConst.PORT_KEY))
         print('\tHost: ' + self.host)
         print('\tPort: ' + str(self.port))
         
@@ -49,8 +49,8 @@ class CoapClientConnector():
     
     def pingServer(self):
         self.initClient()
-        ping = pyping.ping(client)
-        if ping.ret_code == 0 :
+        cping = os.system("ping -c 1 " + self.host)
+        if cping == 0 :
             print("Pinging Server...\n")
         else:
             print("Cannot ping Server!!\n")
