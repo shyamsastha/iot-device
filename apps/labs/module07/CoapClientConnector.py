@@ -80,10 +80,10 @@ class CoapClientConnector():
         response = self.client.put(resource, payload)
         self.responseHandler(response, resource)
 
-    def handleDelete(self, resource, payload):
-        print("Testing delete for resource: " + resource + ", payload: " + payload)
+    def handleDelete(self, resource):
+        print("Testing delete for resource: " + resource)
         self.initClient()
-        response = self.client.delete(resource, payload)
+        response = self.client.delete(resource)
         self.responseHandler(response, resource)
         
     def runTests(self, resource):
@@ -100,7 +100,7 @@ class CoapClientConnector():
         jsondata = dataUtil.sensorTojson(sensorData);
         self.handlePut(resource, jsondata)
         self.handleGet(resource)
-        self.handleDelete(resource, jsondata)
+        self.handleDelete(resource)
         self.handleGet(resource)
      
 if __name__ == '__main__':  # pragma: no cover
