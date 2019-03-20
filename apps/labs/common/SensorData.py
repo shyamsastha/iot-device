@@ -18,14 +18,14 @@ class SensorData():
     variables that will be sent as sensor information
     '''
     timestamp = None
-    name = 'Temperature Sensor'
+    name = 'Temperature'
     curVal = 0;
     avgVal = 0;
     minVal = 0;
     maxVal = 25;
     totVal = 0;
     diffVal = 0;
-    sampleCount = 1;
+    sampleCount = 0;
     breach_values = list();
     
     #takes in the current time as the time stamp
@@ -37,16 +37,16 @@ class SensorData():
     
     #function to add value to empty readings and increment values on consequent readings
     def addValue(self, newVal):
-        self.sampleCount += 1
+        #self.sampleCount += 1
         self.timeStamp = str(datetime.now().replace(microsecond=0))
         self.curVal = newVal
-        self.totVal += newVal
+        #self.totVal += newVal
         if (self.curVal < self.minVal):
             self.minVal = self.curVal
         if (self.curVal > self.maxVal):
             self.maxVal = self.curVal
-        if (self.totVal != 0 and self.sampleCount > 0):
-            self.avgVal = self.totVal / self.sampleCount
+        #if (self.totVal != 0 and self.sampleCount > 0):
+            #self.avgVal = self.totVal / self.sampleCount
     
     '''
     Various functions are listed below according to the requirements to retrieve information based
@@ -61,6 +61,9 @@ class SensorData():
     
     def getMinValue(self):
         return self.minVal
+    
+    def getTotalValue(self):
+        return self.totVal
     
     def getValue(self):
         return self.curVal

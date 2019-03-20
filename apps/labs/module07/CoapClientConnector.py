@@ -88,6 +88,7 @@ class CoapClientConnector():
         
     def runTests(self, resource):
         sensorData = SensorData(resource,10,30)
+        sensorData.addValue(10)
         dataUtil = DataUtil()
         jsondata = dataUtil.sensorTojson(sensorData);
         self.initClient()
@@ -95,7 +96,7 @@ class CoapClientConnector():
         self.handleGet(resource)
         self.handlePost(resource, jsondata)
         self.handleGet(resource)
-        sensorData.addValue(15)
+        sensorData.addValue(20)
         jsondata = dataUtil.sensorTojson(sensorData);
         self.handlePut(resource, jsondata)
         self.handleGet(resource)

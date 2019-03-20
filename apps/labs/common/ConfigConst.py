@@ -31,7 +31,7 @@ ConfigConst file taken from professor
 
 SECTION_SEPARATOR     = '.'
 
-DEFAULT_CONFIG_FILE_NAME = '/home/shyam/scratch/iot-device/config/ConnectedDevicesConfig.props'
+DEFAULT_CONFIG_FILE_NAME = '/home/shyam/git/iot-device/config/ConnectedDevicesConfig.props'
 
 DEFAULT_HOST          = '127.0.0.1'
 DEFAULT_COAP_PORT     = 5683
