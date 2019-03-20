@@ -48,12 +48,11 @@ class CoapClientConnector():
             pass
     
     def pingServer(self):
-        self.initClient()
-        cping = os.system("ping -c 1 " + self.host)
-        if cping == 0 :
-            print("Pinging Server...\n")
+        pping = os.system("ping -c 1 " + self.host)
+        if pping == 0:
+            print("Successful ping!")
         else:
-            print("Cannot ping Server!!\n")
+            print("Unable to find server")
         
     def responseHandler(self, response, resource):
         if response:
