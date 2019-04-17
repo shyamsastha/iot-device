@@ -66,6 +66,5 @@ class DataUtil(object):
         actdata.hasError = actdataDict['hasError']
         actdata.command = actdataDict['command']
         actdata.errCode = actdataDict['errCode']
-        actdata.statusCode = actdataDict['statusCode']
         actdata.stateData = actdataDict['stateData']
         return actdata

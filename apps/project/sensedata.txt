@@ -1,1 +1,1 @@
-{"name": "AirQuality", "pressure": 973, "humidity": 42, "temperature": 11, "timeStamp": "2019-04-17 16:47:06"}
+{"name": "AirQuality", "pressure": 1019, "humidity": 35, "timeStamp": "2019-04-17 17:25:57", "temperature": 28}

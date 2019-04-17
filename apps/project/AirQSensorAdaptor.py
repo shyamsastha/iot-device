@@ -45,4 +45,4 @@ class AirQSensorAdaptor(Thread):
                 print(' ' + str(self.sensorData))
                 pubclient = MqttClientConnector()
                 pubclient.publish(host,"airqm",jsonData)
-            sleep(45)
+            sleep(60)

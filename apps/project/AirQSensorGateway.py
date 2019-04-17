@@ -14,14 +14,11 @@ from .MqttClientConnector import MqttClientConnector
 from ubidots import ApiClient
 
 #Various command modes to be set on the actuator
-COMMAND_AC = 0 #To turn on the air conditioner and turn off humidifier
-COMMAND_HM = 1 #To turn on the humidifier and turn off air conditioner
-COMMAND_RESET_AC = 2 #To set it back to air conditioner
-COMMAND_RESET_HM = 3 #To set it back to humidifier
+COMMAND_AC = 1 #To turn on the air conditioner and turn on the humidifier
+COMMAND_HM = 2 #To turn on the air conditioner and turn off the humidifier 
+COMMAND_RESET_AC = 3 #To turn off air conditioner and turn on the humidifier
+COMMAND_RESET_HM = 4 #To turn off the air conditioner and turn off humidifier
 
-#Possible states of the actuator
-STATUS_AC = 0 #To set the humidifier state to idle and turn on air conditioning
-STATUS_HM = 1 #To set the humidifier state to active and turn off air conditioning
 
 #Flags to check for errors
 ERROR_OK = 0 
@@ -34,6 +31,7 @@ TOKEN = "A1E-UectWsA40SKK5DI11B5C9yctwnwW0m"
 host = "127.0.0.1"
 api = ApiClient(token=TOKEN)
 systemtoggle = api.get_variable('5cb671d3c03f9774a327220e')
+controltoggle = api.get_variable('5cb791e4c03f977ab11854de')
 tempremote = api.get_variable('5cb66e4dc03f9771f8685382')
 pressremote = api.get_variable('5cb66e83c03f977258463fdc')
 humidremote = api.get_variable('5cb66ea6c03f97729df16b3d')
@@ -66,6 +64,42 @@ class AirQSensorGateway(Thread):
                 msg = subclient.message()                  # Subscribing to required topic
                 print("\nReceived Json data: \n"+str(msg))
                 self.sensorData = self.data.jsonTosensor(msg)        # Converting Jsondata to Sensordata
+                  
+                '''
+                Setting values to remote and getting values from remote to check for conditions
+                '''
+                tempremote.save_value({'value': self.sensorData.getTemperature()})
+                pressremote.save_value({'value': self.sensorData.getPressure()})
+                humidremote.save_value({'value': self.sensorData.getHumidity()})
+                sleep(5)
+                systemcheck = systemtoggle.get_values(1)
+                controlcheck = controltoggle.get_values(1)
+                
+                '''
+                checking to see if the temperature exceeds nominal temperature to set status
+                for actuator and send the message accordingly
+                '''
+                if systemcheck[0]['value'] and controlcheck[0]['value']:
+                    if systemcheck[0]['value'] == 1 and controlcheck[0]['value'] == 1:    
+                        self.actuator.setCommand(COMMAND_AC)
+                        self.actuator.setErrorCode(ERROR_OK)
+                        self.actuator.setStateData('Air Conditioning ON')
+                        print('\n Air Conditioning and Humidifier ON')
+                    elif systemcheck[0]['value'] == 1 and controlcheck[0]['value'] == 2:
+                        self.actuator.setCommand(COMMAND_HM)
+                        self.actuator.setErrorCode(ERROR_OK)
+                        self.actuator.setStateData('Air Conditioning OFF')
+                        print('\n Air Conditioning ON. Turning OFF Humidifier')
+                    if  systemcheck[0]['value'] == 2 and controlcheck[0]['value'] == 1:
+                        self.actuator.setCommand(COMMAND_RESET_AC)
+                        self.actuator.setErrorCode(ERROR_OK)
+                        self.actuator.setStateData('Humidifier ON')
+                        print('\n Humidifier ON. Turning OFF Air Conditioning')
+                    elif systemcheck[0]['value'] == 2 and controlcheck[0]['value'] == 2:
+                        self.actuator.setCommand(COMMAND_RESET_HM)
+                        self.actuator.setErrorCode(ERROR_OK)
+                        self.actuator.setStateData('Humidifier OFF')
+                        print('\n Turning OFF Air Conditioning and Humidifier')
                 
                 '''
                 Checking for alerting difference and sending the message through SMTP
@@ -77,44 +111,5 @@ class AirQSensorGateway(Thread):
                 elif (self.sensorData.getHumidity()  <= 34):
                     print('\n Triggering alert...')
                     self.connector.publishMessage('Humidifier needs a new filter!!'
-                    'Or maybe stop wasting it needlessly :/\n', msg)
-                    
-                '''
-                Setting values to remote and getting values from remote to check for conditions
-                '''
-                tempremote.save_value({'value': self.sensorData.getTemperature()})
-                pressremote.save_value({'value': self.sensorData.getPressure()})
-                humidremote.save_value({'value': self.sensorData.getHumidity()})
-                sleep(1)
-                systemcheck = systemtoggle.get_values(1)
-                
-                '''
-                checking to see if the temperature exceeds nominal temperature to set status
-                for actuator and send the message accordingly
-                '''
-                if systemcheck[0]['value']:
-                    if systemcheck[0]['value'] == 1:    
-                        self.actuator.setCommand(COMMAND_AC)
-                        self.actuator.setStatusCode(STATUS_AC)
-                        self.actuator.setErrorCode(ERROR_OK)
-                        self.actuator.setStateData('Air Conditioning ON')
-                        print('\n Turning on Air COnditioning')
-                    elif systemcheck[0]['value'] == 2:
-                        self.actuator.setCommand(COMMAND_HM)
-                        self.actuator.setStatusCode(STATUS_HM)
-                        self.actuator.setErrorCode(ERROR_OK)
-                        self.actuator.setStatusCode('Humidifier ON')
-                        print('\n Turning on Humidifier')
-                    elif systemcheck[0]['value'] == 3:
-                        self.actuator.setCommand(COMMAND_RESET_AC)
-                        self.actuator.setStatusCode(STATUS_HM)
-                        self.actuator.setErrorCode(ERROR_OK)
-                        self.actuator.setStatusCode('Humidifier OFF')
-                        print('\n Turning off Humidifier')
-                    elif systemcheck[0]['value'] == 4:
-                        self.actuator.setCommand(COMMAND_RESET_HM)
-                        self.actuator.setStatusCode(STATUS_HM)
-                        self.actuator.setErrorCode(ERROR_OK)
-                        self.actuator.setStatusCode('Air Conditioning OFF')
-                        print('\n Turning off Air Conditioning')
+                    'Or maybe stop wasting it needlessly :/\n', msg)        
             sleep(15)

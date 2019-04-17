@@ -17,7 +17,6 @@ class ActuatorData():
     hasError = False
     command = 0
     errorCode = 0
-    statusCode = 0
     stateData = None
     
     #initiates time stamp
@@ -36,10 +35,6 @@ class ActuatorData():
     #Gets the State of the device
     def getStateData(self):
         return self.stateData
-
-    #Gets the status code of the device
-    def getStatusCode(self):
-        return self.statusCode
 
     #Gets the error code if any
     def getErrorCode(self):
@@ -61,10 +56,6 @@ class ActuatorData():
     def setStateData(self, stateData):
         self.stateData = stateData
 
-    #Sets the Status code
-    def setStatusCode(self, statusCode):
-        self.statusCode = statusCode
-
     #Sets the error code
     def setErrorCode(self, errCode):
         self.errCode = errCode
@@ -76,7 +67,6 @@ class ActuatorData():
     #Sends a data update for the actuator
     def updateData(self, data):
         self.command = data.getCommand()
-        self.statusCode = data.getStatusCode()
         self.errCode = data.getErrorCode()
         self.stateData = data.getStateData()
 
@@ -89,6 +79,5 @@ class ActuatorData():
         return str(self.name + ':' + \
             os.linesep + '\tTime: ' + self.timeStamp + \
             os.linesep + '\tCommand: ' + str(self.command) + \
-            os.linesep + '\tStatus Code: ' + str(self.statusCode) + \
             os.linesep + '\tError Code: ' + str(self.errCode) + \
             os.linesep + '\tState Data: ' + str(self.stateData))
