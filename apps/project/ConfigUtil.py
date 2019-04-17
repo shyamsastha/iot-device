@@ -22,7 +22,7 @@
 
 import configparser
 import os
-from . import ConfigConst
+from labs.common import ConfigConst
 
 '''
 A simple utility wrapper around the built-in Python

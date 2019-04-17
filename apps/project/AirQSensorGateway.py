@@ -5,11 +5,10 @@ Simple Python script for AirQSensorAdaptor
 '''
 
 import logging
-from . import ConfigConst
-from .ConfigUtil import ConfigUtil
 from time import sleep
 from threading import Thread
 from .SensorData import SensorData
+from .ActuatorData import ActuatorData
 from .DataUtil import DataUtil
 from .SmtpClientConnector import SmtpClientConnector
 from .MqttClientConnector import MqttClientConnector
@@ -32,9 +31,9 @@ ERROR_NON_RESPONSIBLE = -1
 
 #Setting values for Topic and address for MQTT broker
 topic = "airqm"
-config = ConfigUtil('ConnectedDevicesConfig.props')
-host = config.getProperty(ConfigConst.MQTT_GATEWAY_SECTION, ConfigConst.HOST_KEY)
-api = ApiClient(token=config.getProperty(ConfigConst.UBIDOTS_CLOUD_SECTION,ConfigConst.CLOUD_API_KEY))
+TOKEN = "A1E-UectWsA40SKK5DI11B5C9yctwnwW0m"
+host = "127.0.0.1"
+api = ApiClient(token=TOKEN)
 systemtoggle = api.get_variable('5cb671d3c03f9774a327220e')
 tempremote = api.get_variable('5cb66e4dc03f9771f8685382')
 pressremote = api.get_variable('5cb66e83c03f977258463fdc')
@@ -50,10 +49,9 @@ class AirQSensorGateway(Thread):
         Thread.__init__(self)
         self.enableAdaptor = True
         self.connector = SmtpClientConnector()
-        self.subscribe = MqttClientConnector(topic)
         self.sensorData = SensorData()
+        self.actuator = ActuatorData("AC/Humidifier")
         self.data = DataUtil()
-        self.msg
         
     '''
     This thread gets the current temperature from SenseHat. 
@@ -63,32 +61,29 @@ class AirQSensorGateway(Thread):
     def run(self):
         while True:
             if self.enableAdaptor:
-                sleep(10)
-                self.subscribe.subscribe(host)
+                subclient = MqttClientConnector(topic)
+                subclient.subscribe(host)
                 #Print sensor information
-                self.msg = self.subscribe.message()                  # Subscribing to required topic
-                logging.debug('\nJSon Received: ')
-                print("\nReceived Json data: \n"+str(self.msg))
-                self.sensorData = self.data.jsonTosensor(self.msg)        # Converting Jsondata to Sensordata
-                logging.debug('\nJson in "SensorData format": ')
-                print("\nMessage received in 'SensorData format': \n"+str(self.sensorData)+"\n")
+                msg = subclient.message()                  # Subscribing to required topic
+                print("\nReceived Json data: \n"+str(msg))
+                self.sensorData = self.data.jsonTosensor(msg)        # Converting Jsondata to Sensordata
                 
                 #checking for alerting difference and sending the message through SMTP
                 if (self.sensorData.getTemperature()  >= 36):
                     print('\n Triggering alert...')
                     #sends message through SMTP
-                    self.connector.publishMessage('Air conditioning is broken!!\n', self.msg)
+                    self.connector.publishMessage('Air conditioning is broken!!\n', msg)
                 elif (self.sensorData.getHumidity()  <= 34):
                     print('\n Triggering alert...')
                     #sends message through SMTP
-                    self.connector.publishMessage('Humidifier needs a new filter!!\n', self.msg)
+                    self.connector.publishMessage('Humidifier needs a new filter!!\n', msg)
                 '''
                 Setting values to remote and getting values from remote to check for conditions
                 '''
                 tempremote.save_value({'value': self.sensorData.getTemperature()})
                 pressremote.save_value({'value': self.sensorData.getPressure()})
                 humidremote.save_value({'value': self.sensorData.getHumidity()})
-                sleep(5)
+                sleep(1)
                 systemcheck = systemtoggle.get_values(1)
                 '''
                 checking to see if the temperature exceeds nominal temperature to set status
@@ -118,5 +113,5 @@ class AirQSensorGateway(Thread):
                         self.actuator.setStatusCode(STATUS_HM)
                         self.actuator.setErrorCode(ERROR_OK)
                         self.actuator.setStatusCode('Air Conditioning OFF')
-                        print('\n Turning off Air Conditioning')  
-            sleep(10)
+                        print('\n Turning off Air Conditioning')
+            sleep(30)

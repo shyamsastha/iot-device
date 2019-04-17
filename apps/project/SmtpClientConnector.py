@@ -4,8 +4,8 @@ Simple Python script for SMTP Client Connector
 @author: Shyama Sastha Krishnamoorthy Srinivasan
 '''
 
-from labs.common import ConfigUtil
-from labs.common import ConfigConst
+from .ConfigUtil import ConfigUtil
+from . import ConfigConst
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -16,7 +16,7 @@ email receiver on a regular cycle
 class SmtpClientConnector(object):
 
     def __init__(self):
-        self.config = ConfigUtil.ConfigUtil(ConfigConst.DEFAULT_CONFIG_FILE_NAME)
+        self.config = ConfigUtil(ConfigConst.DEFAULT_CONFIG_FILE_NAME)
         self.config.loadConfig()
         print('Configuration data...\n' + str(self.config))
         

@@ -1,22 +1,20 @@
 [ubidots.cloud]
-apiKey         = Not Set
+apiKey         = A1E-5bfa975dea61be4b84885f923c97c7040418
 userNameToken  = Not Set
-authToken      = Not Set
+authToken      = A1E-UectWsA40SKK5DI11B5C9yctwnwW0m
 protocol       = ssl
-#host           = things.ubidots.com
-host           = 50.23.124.68
+host           = things.ubidots.com
 port           = 8883
 useWebAccess   = True
-#baseUrl        = https://things.ubidots.com/api/v1.6/
-baseUrl        = https://50.23.124.68/api/v1.6/
-certFile       = /home/motion/config/ubidots_cert.pem
-configPath     = /home/motion/config
+baseUrl        = things.ubidots.com
+certFile       = ubidots_cert.pem
+configPath     = /home/shyam/git/iot-gateway/config/
 
 [smtp.cloud]
 host           = smtp.gmail.com
 port           = 587
 fromAddr       = shyamiotcd@gmail.com
-toAddr         = dragonfirestream.pbe@gmail.com
+toAddr         = krishnamoorthysrin.s@husky.neu.edu
 toMediaAddr    = dragonfirestream.pbe@gmail.com
 toTxtAddr      = 8572366809@txt.att.net
 authToken      = Do3sitwork?
@@ -26,10 +24,10 @@ enableCrypt    = True
 [mqtt.cloud]
 userNameToken  = Not Set
 authToken      = Not Set
-host           = iot.eclipse.org
+host           = test.mosquitto.org
 port           = 1883
 securePort     = 1884
-defaultQos     = 2
+defaultQos     = 0
 enableAuth     = False
 enableCrypt    = False
 keepAlive      = 60
@@ -46,7 +44,7 @@ enableCrypt    = False
 [mqtt.gateway]
 userNameToken  = Not Set
 authToken      = Not Set
-host           = iot.eclipse.org
+host           = 127.0.0.1
 port           = 1883
 securePort     = 1884
 defaultQos     = 2
@@ -75,5 +73,5 @@ cloudSvcType   = UBIDOTS
 
 [device]
 enableEmulator = True
-pollCycleSecs  = 10
+pollCycleSecs  = 60
 nominalTemp    = 20

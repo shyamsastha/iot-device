@@ -3,9 +3,7 @@ Created on April 12,2019
 Simple Python script for AirQSensorAdaptor
 @author: Shyama Sastha Krishnamoorthy Srinivasan
 '''
-
-from . import ConfigConst
-from .ConfigUtil import ConfigUtil
+import logging
 from time import sleep
 from threading import Thread
 from .SensorData import SensorData
@@ -14,8 +12,7 @@ from .DataUtil import DataUtil
 from .SmtpClientConnector import SmtpClientConnector
 from .MqttClientConnector import MqttClientConnector
 
-config = ConfigUtil('ConnectedDevicesConfig.props')
-host = config.getProperty(ConfigConst.MQTT_GATEWAY_SECTION, ConfigConst.HOST_KEY)
+host = "127.0.0.1"
 
 class AirQSensorAdaptor(Thread):
     
@@ -29,7 +26,6 @@ class AirQSensorAdaptor(Thread):
         self.sensorData = SensorData(name)
         self.actuator = ActuatorData("AC/Humidifier")
         self.connector = SmtpClientConnector()
-        self.pubclient = MqttClientConnector();
         
     '''
     This thread gets the current temperature from SenseHat. 
@@ -39,11 +35,14 @@ class AirQSensorAdaptor(Thread):
     def run(self):
         while True:
             if self.enableAdaptor:
+                sleep(1)
+                self.sensorData.updateValue()
                 data = DataUtil()
-                json_data = data.sensorTojson(self.sensorData); #appends JSON data to file
-                self.pubclient.publish(host,"airqm",json_data)
+                jsonData = data.sensorTojson(self.sensorData)
                 #Print sensor information
                 print('\n--------------------')
-                print('New sensor readings:')
+                print('New sensor readings for publishing:')
                 print(' ' + str(self.sensorData))
+                pubclient = MqttClientConnector()
+                pubclient.publish(host,"airqm",jsonData)
             sleep(30)

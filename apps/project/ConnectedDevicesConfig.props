@@ -8,16 +8,16 @@ port           = 8883
 useWebAccess   = True
 baseUrl        = things.ubidots.com
 certFile       = ubidots_cert.pem
-configPath     = /home/shyam/git/iot-device/project/
+configPath     = /home/shyam/git/iot-gateway/config/
 
 [smtp.cloud]
-host           = Not Set
-port           = 465
-fromAddr       = Not Set
-toAddr         = Not Set
-toMediaAddr    = Not Set
-toTxtAddr      = Not Set
-authToken      = Not Set
+host           = smtp.gmail.com
+port           = 587
+fromAddr       = shyamiotcd@gmail.com
+toAddr         = krishnamoorthysrin.s@husky.neu.edu
+toMediaAddr    = dragonfirestream.pbe@gmail.com
+toTxtAddr      = 8572366809@txt.att.net
+authToken      = Do3sitwork?
 enableAuth     = True
 enableCrypt    = True
 
@@ -73,4 +73,5 @@ cloudSvcType   = UBIDOTS
 
 [device]
 enableEmulator = True
-pollCycleSecs  = 30
+pollCycleSecs  = 60
+nominalTemp    = 20

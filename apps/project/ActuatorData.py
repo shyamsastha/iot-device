@@ -91,4 +91,4 @@ class ActuatorData():
             os.linesep + '\tCommand: ' + str(self.command) + \
             os.linesep + '\tStatus Code: ' + str(self.statusCode) + \
             os.linesep + '\tError Code: ' + str(self.errCode) + \
-            os.linesep + '\tState Data: ' + str(self.stateData)
+            os.linesep + '\tState Data: ' + str(self.stateData))

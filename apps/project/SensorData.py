@@ -18,7 +18,7 @@ class SensorData():
     '''
     Class variables
     '''
-    timestamp = str(datetime.now().replace(microsecond=0))
+    timeStamp = str(datetime.now().replace(microsecond=0))
     name = "AirQm"
     temperature = round(sense.get_temperature(), 1)
     pressure = round(sense.get_pressure(), 1)
@@ -28,6 +28,9 @@ class SensorData():
     def __init__(self, name = "AirQuality"):
         self.timestamp = str(datetime.now().replace(microsecond=0))
         self.name = name
+        self.setTemperature()
+        self.setPressure()
+        self.setHumidity()
     
     #function to add value to empty readings and increment values on consequent readings
     def updateValue(self):
@@ -60,21 +63,21 @@ class SensorData():
         self.name = name
         
     def setTemperature(self):
-        self.temperature = round(sense.get_temperature(), 1)
+        self.temperature = sense.get_temperature()
     
     def setPressure(self):
-        self.pressure = round(sense.get_pressure(), 1)
+        self.pressure = sense.get_pressure()
     
-    def setHumidity(self, humid):
-        self.humidity = round(sense.get_humidity(), 1)
+    def setHumidity(self):
+        self.humidity = sense.get_humidity()
     
     def setTimestamp(self):
         self.timeStamp = str(datetime.now().replace(microsecond=0))
     
     #custom string output to print the obtained information          
     def __str__(self):
-        return str(self.name + ':' + \
-            os.linesep + '\tTime: ' + self.timeStamp + \
-            os.linesep + '\tTemperature: ' + str(self.temperature) + \
-            os.linesep + '\tPressure: ' + str(self.pressure) + \
-            os.linesep + '\tHumidity: ' + str(self.humidity))
+        return str(self.getName() + ':' + \
+            os.linesep + '\tTime: ' + str(self.getTimestamp()) + \
+            os.linesep + '\tTemperature: ' + str(self.getTemperature()) + \
+            os.linesep + '\tPressure: ' + str(self.getPressure()) + \
+            os.linesep + '\tHumidity: ' + str(self.getHumidity()))

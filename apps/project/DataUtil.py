@@ -22,7 +22,13 @@ class DataUtil(object):
     Function to convert from sensor to Json type
     '''
     def sensorTojson(self, sensorData):
-        self.jsonSd = json.dumps(sensorData.__dict__)
+        data = {};
+        data['name'] = sensorData.getName()
+        data['timeStamp'] = sensorData.getTimestamp()
+        data['temperature'] = sensorData.getTemperature()
+        data['pressure'] = sensorData.getPressure()
+        data['humidity'] = sensorData.getHumidity()
+        self.jsonSd = json.dumps(data)
         outputSd = open('sensedata.txt','w')
         outputSd.write(self.jsonSd)
         return self.jsonSd

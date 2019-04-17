@@ -13,6 +13,7 @@ import paho.mqtt.client as mqtt
 import paho.mqtt.publish as publish
 from asyncio.tasks import sleep
 import time
+import logging
 
 class MqttClientConnector():
     host = "iot.eclipse.org"
@@ -22,7 +23,7 @@ class MqttClientConnector():
         '''
         Function to execute once the client connects with MQTT Broker (Callback function)
         '''
-        print("Connected with Client: "+str(rc))
+        logging.warning("Connected with Client: "+ str(rc + 1))
         client.subscribe(self.topic,2)
     
     def on_message(self,client,userdata,msg):
