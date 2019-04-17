@@ -18,7 +18,7 @@ class SensorData():
     variables that will be sent as sensor information
     '''
     timestamp = None
-    name = 'Temperature'
+    name = None
     curVal = 0;
     avgVal = 0;
     minVal = 0;
@@ -81,7 +81,7 @@ class SensorData():
             os.linesep + '\tTime: ' + self.timeStamp + \
             os.linesep + '\tCurrent: ' + str(self.curVal) + \
             os.linesep + '\tAverage: ' + str(self.avgVal) + \
-            #os.linesep + '\tSamples: ' + str(self.sampleCount) + \
+            os.linesep + '\tSamples: ' + str(self.sampleCount) + \
             os.linesep + '\tMin: ' + str(self.minVal) + \
             os.linesep + '\tMax: ' + str(self.maxVal))
             
