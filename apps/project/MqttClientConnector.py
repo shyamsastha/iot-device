@@ -23,7 +23,7 @@ class MqttClientConnector():
         '''
         Function to execute once the client connects with MQTT Broker (Callback function)
         '''
-        logging.warning("Connected with Client: "+ str(rc + 1))
+        logging.info("Connected with Client: "+ str(rc + 1))
         client.subscribe(self.topic,2)
     
     def on_message(self,client,userdata,msg):

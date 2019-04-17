@@ -4,7 +4,6 @@ Simple Python script for AirQSensorAdaptor
 @author: Shyama Sastha Krishnamoorthy Srinivasan
 '''
 
-import logging
 from time import sleep
 from threading import Thread
 from .SensorData import SensorData
@@ -68,15 +67,18 @@ class AirQSensorGateway(Thread):
                 print("\nReceived Json data: \n"+str(msg))
                 self.sensorData = self.data.jsonTosensor(msg)        # Converting Jsondata to Sensordata
                 
-                #checking for alerting difference and sending the message through SMTP
+                '''
+                Checking for alerting difference and sending the message through SMTP
+                '''
                 if (self.sensorData.getTemperature()  >= 36):
                     print('\n Triggering alert...')
-                    #sends message through SMTP
-                    self.connector.publishMessage('Air conditioning is broken!!\n', msg)
+                    self.connector.publishMessage('Air conditioning is broken!!'
+                    'Or maybe its just the thermostat... Check and get a new battery!\n', msg)
                 elif (self.sensorData.getHumidity()  <= 34):
                     print('\n Triggering alert...')
-                    #sends message through SMTP
-                    self.connector.publishMessage('Humidifier needs a new filter!!\n', msg)
+                    self.connector.publishMessage('Humidifier needs a new filter!!'
+                    'Or maybe stop wasting it needlessly :/\n', msg)
+                    
                 '''
                 Setting values to remote and getting values from remote to check for conditions
                 '''
@@ -85,6 +87,7 @@ class AirQSensorGateway(Thread):
                 humidremote.save_value({'value': self.sensorData.getHumidity()})
                 sleep(1)
                 systemcheck = systemtoggle.get_values(1)
+                
                 '''
                 checking to see if the temperature exceeds nominal temperature to set status
                 for actuator and send the message accordingly
@@ -114,4 +117,4 @@ class AirQSensorGateway(Thread):
                         self.actuator.setErrorCode(ERROR_OK)
                         self.actuator.setStatusCode('Air Conditioning OFF')
                         print('\n Turning off Air Conditioning')
-            sleep(30)
+            sleep(15)

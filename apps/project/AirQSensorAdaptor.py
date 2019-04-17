@@ -3,7 +3,7 @@ Created on April 12,2019
 Simple Python script for AirQSensorAdaptor
 @author: Shyama Sastha Krishnamoorthy Srinivasan
 '''
-import logging
+
 from time import sleep
 from threading import Thread
 from .SensorData import SensorData
@@ -45,4 +45,4 @@ class AirQSensorAdaptor(Thread):
                 print(' ' + str(self.sensorData))
                 pubclient = MqttClientConnector()
                 pubclient.publish(host,"airqm",jsonData)
-            sleep(30)
+            sleep(45)
