@@ -63,6 +63,7 @@ class AirQSensorGateway(Thread):
     def run(self):
         while True:
             if self.enableAdaptor:
+                sleep(10)
                 self.subscribe.subscribe(host)
                 #Print sensor information
                 self.msg = self.subscribe.message()                  # Subscribing to required topic
@@ -87,6 +88,7 @@ class AirQSensorGateway(Thread):
                 tempremote.save_value({'value': self.sensorData.getTemperature()})
                 pressremote.save_value({'value': self.sensorData.getPressure()})
                 humidremote.save_value({'value': self.sensorData.getHumidity()})
+                sleep(5)
                 systemcheck = systemtoggle.get_values(1)
                 '''
                 checking to see if the temperature exceeds nominal temperature to set status
@@ -116,6 +118,5 @@ class AirQSensorGateway(Thread):
                         self.actuator.setStatusCode(STATUS_HM)
                         self.actuator.setErrorCode(ERROR_OK)
                         self.actuator.setStatusCode('Air Conditioning OFF')
-                        print('\n Turning off Air Conditioning')
-                delay = int(config.getProperty(ConfigConst.CONSTRAINED_DEVICE, ConfigConst.POLL_CYCLES_KEY))  
-            sleep(delay)
+                        print('\n Turning off Air Conditioning')  
+            sleep(10)
