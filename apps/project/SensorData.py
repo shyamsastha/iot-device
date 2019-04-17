@@ -18,8 +18,8 @@ class SensorData():
     '''
     Class variables
     '''
-    timestamp = None
-    name = None
+    timestamp = str(datetime.now().replace(microsecond=0))
+    name = "AirQm"
     temperature = round(sense.get_temperature(), 1)
     pressure = round(sense.get_pressure(), 1)
     humidity = round(sense.get_humidity(), 1)
@@ -45,13 +45,13 @@ class SensorData():
         return self.name
             
     def getTemperature(self):
-        return self.temperature
+        return int(self.temperature)
     
     def getPressure(self):
-        return self.pressure
+        return int(self.pressure)
     
     def getHumidity(self):
-        return self.humidity
+        return int(self.humidity)
     
     def getTimestamp(self):
         return self.timeStamp
@@ -59,14 +59,17 @@ class SensorData():
     def setName(self, name):
         self.name = name
         
-    def setTemperature(self, temp):
-        self.temperature = temp
+    def setTemperature(self):
+        self.temperature = round(sense.get_temperature(), 1)
     
-    def setPressure(self, press):
-        self.pressure = press
+    def setPressure(self):
+        self.pressure = round(sense.get_pressure(), 1)
     
     def setHumidity(self, humid):
-        self.humidity = humid
+        self.humidity = round(sense.get_humidity(), 1)
+    
+    def setTimestamp(self):
+        self.timeStamp = str(datetime.now().replace(microsecond=0))
     
     #custom string output to print the obtained information          
     def __str__(self):
@@ -74,4 +77,4 @@ class SensorData():
             os.linesep + '\tTime: ' + self.timeStamp + \
             os.linesep + '\tTemperature: ' + str(self.temperature) + \
             os.linesep + '\tPressure: ' + str(self.pressure) + \
-            os.linesep + '\tHumidity: ' + str(self.humidity)
+            os.linesep + '\tHumidity: ' + str(self.humidity))

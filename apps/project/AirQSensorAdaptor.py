@@ -3,16 +3,8 @@ Created on April 12,2019
 Simple Python script for AirQSensorAdaptor
 @author: Shyama Sastha Krishnamoorthy Srinivasan
 '''
-from labbenchstudios.common.ConfigConst import UBIDOTS_CLOUD_SECTION,\
-    CLOUD_API_KEY
-
-'''
-Imports to read from senseHAT, use JSON, use date and time for recording
-Used to improve the existing temperature sensor adaptor application
-''' 
 
 from datetime import datetime
-from ubidots import ApiClient
 import json
 from . import ConfigConst
 from .ConfigUtil import ConfigUtil
@@ -25,10 +17,10 @@ from .SmtpClientConnector import SmtpClientConnector
 from .MqttClientConnector import MqttClientConnector
 
 #Various command modes to be set on the actuator
-COMMAND_AC = 0 #To turn on the air conditioner and turn off humidifier
-COMMAND_HM = 1 #To turn on the humidifier and turn off air conditioner
-COMMAND_RESET_AC = 2 #To set it back to air conditioner
-COMMAND_RESET_HM = 3 #To set it back to humidifier
+COMMAND_AC = 1 #To turn on the air conditioner 
+COMMAND_HM = 2 #To turn on the humidifier
+COMMAND_RESET_AC = 3 #To turn off humidifier
+COMMAND_RESET_HM = 4 #To turn off air conditioner
 
 #Possible states of the actuator
 STATUS_AC = 0 #To set the humidifier state to idle and turn on air conditioning
@@ -39,9 +31,8 @@ ERROR_OK = 0
 ERROR_COMMAND_FAILED = 1 
 ERROR_NON_RESPONSIBLE = -1
 
-config = ConfigUtil('../../../config/ConnectedDevicesConfig.props')
+config = ConfigUtil('ConnectedDevicesConfig.props')
 host = config.getProperty(ConfigConst.MQTT_GATEWAY_SECTION, ConfigConst.HOST_KEY)
-api = ApiClient(token=config.getProperty(UBIDOTS_CLOUD_SECTION,CLOUD_API_KEY), base_url="http://yourcompanyname.api.ubidots.com/api/v1.6/")
 
 class AirQSensorAdaptor(Thread):
     

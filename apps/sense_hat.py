@@ -24,21 +24,14 @@ class SenseHat():
 
     def get_humidity(self):
         # NOTE: This is just a sample
-        return round(uniform(30.0, 40.0), 2)
+        return round(uniform(30.0, 60.0), 2)
     
     def get_temperature(self):
-        return self.get_temperature_from_humidity()
-    
-    def get_temperature_from_humidity(self):
-        # NOTE: This is just a sample
-        return round(uniform(18.0, 25.0), 2)
-    
-    def get_temperature_from_pressure(self):
-        return self.get_temperature_from_humidity()
+        return round(uniform(10.0, 40.0), 2)
     
     def get_pressure(self):
         # NOTE: This is just a sample
-        return round(uniform(1020.0, 1035.0), 2)
+        return round(uniform(950.0, 1050.0), 2)
             
     def set_rotation(self, rotateDeg):
         self.rotateDeg = rotateDeg

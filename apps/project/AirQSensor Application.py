@@ -4,6 +4,7 @@ Simple Python script for running the Air Quality Management Application
 @author: Shyama Sastha Krishnamoorthy Srinivasan
 '''
 from .AirQSensorAdaptor import AirQSensorAdaptor
+from .AirQSensorGateway import Air
 from time import sleep
 
 #initiating the adaptor

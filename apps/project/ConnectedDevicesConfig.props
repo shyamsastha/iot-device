@@ -8,7 +8,7 @@ port           = 8883
 useWebAccess   = True
 baseUrl        = things.ubidots.com
 certFile       = ubidots_cert.pem
-configPath     = /home/pi/workspace/iot-device/
+configPath     = /home/shyam/git/iot-device/project/
 
 [smtp.cloud]
 host           = Not Set
@@ -73,4 +73,4 @@ cloudSvcType   = UBIDOTS
 
 [device]
 enableEmulator = True
-pollCycleSecs  = 60
+pollCycleSecs  = 30
