@@ -8,7 +8,7 @@ port           = 8883
 useWebAccess   = True
 baseUrl        = things.ubidots.com
 certFile       = ubidots_cert.pem
-configPath     = /home/shyam/git/iot-gateway/config/
+configPath     = /home/pi/git/iot-device/apps/project/
 
 [smtp.cloud]
 host           = smtp.gmail.com
